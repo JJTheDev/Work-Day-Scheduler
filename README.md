@@ -2,13 +2,7 @@
 
 ## Description
 
-Provide a short description explaining the what, why, and how of your project. Use the following questions as a guide:
-
-- What was your motivation?
-- Why did you build this project? (Note: the answer is not "Because it was a homework assignment.")
-- What problem does it solve?
-- What did you learn?
-
+Creating this work day planner will alow the user to plan their day out and save he note to the actual web appplication, with the use of local storage it will be safe for the use to leave the web page and come back without fear of losing all their notes.
 
 ## Installation
 
