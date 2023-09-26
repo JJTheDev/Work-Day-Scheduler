@@ -22,13 +22,18 @@
 // Wrap your code in a jQuery document ready function
 
 $(document).ready(function() {
-  // Your DOM interaction code goes here
+  // Cache DOM elements
+  var saveButtons = $('.saveBtn');
+  var timeBlocks = $('.time-block');
+  var descriptions = $('.description');
+  var clearAllButton = $('#clear-all');
+  var currentDayElement = $('#currentDay');
 
   // Example: Add a click event listener to the save buttons
-  $('.saveBtn').on('click', function() {
+  saveButtons.on('click', function() {
     // Accessing the id of the parent time-block
     var timeBlockId = $(this).closest('.time-block').attr('id');
-    
+
     // Get the user input from the textarea within the same time-block
     var userInput = $(this).siblings('.description').val();
 
@@ -39,39 +44,41 @@ $(document).ready(function() {
   // Example: Apply past, present, or future classes to time blocks based on the current hour
   var currentHour = dayjs().hour();
 
-  $('.time-block').each(function() {
-    var timeBlockId = $(this).attr('id');
+  timeBlocks.each(function() {
+    var timeBlock = $(this);
+    var timeBlockId = timeBlock.attr('id');
     var timeBlockHour = parseInt(timeBlockId.split('-')[1]);
 
     if (timeBlockHour < currentHour) {
-      $(this).addClass('past');
+      timeBlock.addClass('past');
     } else if (timeBlockHour === currentHour) {
-      $(this).addClass('present');
+      timeBlock.addClass('present');
     } else {
-      $(this).addClass('future');
+      timeBlock.addClass('future');
     }
   });
 
   // Example: Retrieve user input from local storage and set it in the corresponding textarea
-  $('.time-block').each(function() {
-    var timeBlockId = $(this).attr('id');
+  timeBlocks.each(function() {
+    var timeBlock = $(this);
+    var timeBlockId = timeBlock.attr('id');
     var storedInput = localStorage.getItem(timeBlockId);
-    
+
     if (storedInput) {
-      $(this).find('.description').val(storedInput);
+      timeBlock.find('.description').val(storedInput);
     }
   });
 
   // Example: Display the current date in the header
   var currentDate = dayjs().format('dddd, MMMM D, YYYY');
-  $('#currentDay').text(currentDate);
+  currentDayElement.text(currentDate);
 
-   // Add an event listener for the "Clear All" button
-   $('#clear-all').on('click', function() {
+  // Add an event listener for the "Clear All" button
+  clearAllButton.on('click', function() {
     // Clear all data from local storage
     localStorage.clear();
 
     // Reset all textareas
-    $('.description').val('');
+    descriptions.val('');
   });
 });
